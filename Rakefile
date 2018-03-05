@@ -1,3 +1,7 @@
+require 'yaml'
+require_relative 'lib/dotfile'
+require_relative 'lib/remote_file'
+
 class Dir
 	def self.leaves(dir, ignore=[])
 		result = []
@@ -11,31 +15,6 @@ class Dir
 			end
 		end
 		result
-	end
-end
-
-class Dotfile
-	attr_reader :src, :destination
-
-	def initialize(file)
-		@src = File.expand_path(file)
-		@destination = File.join(Dir.home, file)
-	end
-	
-	def destination_empty?
-		!File.exists?(@destination)
-	end
-	
-	def linked?
-		File.symlink?(@destination) && File.readlink(@destination) == @src	
-	end
-
-	def check
-		return :error, 'link missing' if destination_empty?
-
-		return :error, 'file exists at destination' unless linked?
-
-		[:success, nil]
 	end
 end
 
@@ -58,23 +37,40 @@ require 'fileutils'
 IGNORED_FILES = [
 	'.',
 	'..',
+  '.byebug_history',
+  '.content',
+  'Gemfile',
+  'Gemfile.lock',
 	'.git',
+  '.gitignore',
+  'lib',
 	'LICENSE',
 	'Rakefile',
-	'README.md'
+  '.rbenv',
+	'README.md',
+  'remote_files.yml',
+  '.rspec',
+  'spec'
 ]
 
-def dotfiles
-	@dotfiles ||= Dir.leaves(".", IGNORED_FILES).map {|f| Dotfile.new(f) }
+REMOTE_FILES = YAML.load_file('remote_files.yml')
+
+def files
+	@files ||= Dir.leaves(".", IGNORED_FILES).map do |file|
+    if REMOTE_FILES.include?(file)
+      RemoteFile.new(file)
+    else
+      Dotfile.new(file)
+    end
+  end
 end
 
 task :check do
-	dotfiles.each do |dotfile|
-		status, err = dotfile.check
-		puts "[#{status}] #{dotfile.src} -> #{dotfile.destination}: #{err}"
+	files.each do |file|
+    puts file
 	end
 
-	if dotfiles.any? {|d| d.check.last }
+	if files.any? {|d| d.error }
 		puts "\nRun `rake setup` to fix errors"
 	else
 		puts "\nDotfiles setup correctly"
@@ -82,18 +78,7 @@ task :check do
 end
 
 task :setup do
-	dotfiles.each do |dotfile|
-		status, err = dotfile.check
-		if err
-			if err == 'file exists at destination'
-				backup_file = "#{dotfile.destination}.bkp"
-				FileUtils.mv(dotfile.destination, backup_file)
-				puts "Created backup file: #{backup_file}"
-			end
-			File.symlink(dotfile.src, dotfile.destination)
-			puts "Created symlink #{dotfile.destination} -> #{dotfile.src}"
-		else
-			puts "Nothing to do, symlink #{dotfile.destination} -> #{dotfile.src} already exists"
-		end
+	files.each do |file|
+    file.setup
 	end
 end
