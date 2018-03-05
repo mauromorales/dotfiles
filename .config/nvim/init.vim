@@ -18,6 +18,7 @@ Plug 'vim-scripts/Specky', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-rails'
+Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 " Go plugins 
 Plug 'fatih/vim-go'
 call plug#end()
@@ -70,3 +71,9 @@ augroup filetype_ruby
     autocmd Filetype ruby set ts=2
     autocmd Filetype ruby set expandtab
 augroup END
+
+" RSpec.vim mappings
+map <Leader>rf :call RunCurrentSpecFile()<CR>
+map <Leader>rn :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
+map <Leader>ra :call RunAllSpecs()<CR>
