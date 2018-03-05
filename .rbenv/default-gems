@@ -2,3 +2,4 @@ gem-ctags
 bundler
 neovim
 rubocop
+pry
