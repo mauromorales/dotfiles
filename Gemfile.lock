@@ -3,6 +3,7 @@ GEM
   specs:
     byebug (10.0.0)
     rainbow (3.0.0)
+    rake (12.3.1)
 
 PLATFORMS
   ruby
@@ -10,6 +11,7 @@ PLATFORMS
 DEPENDENCIES
   byebug (~> 10.0)
   rainbow
+  rake
 
 BUNDLED WITH
    1.16.1
