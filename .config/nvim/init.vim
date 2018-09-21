@@ -12,6 +12,7 @@ Plug '907th/vim-auto-save'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'gabesoft/vim-ags'
 " Ruby plugins 
 Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
 Plug 'vim-scripts/Specky', { 'for': 'ruby' }
@@ -21,6 +22,14 @@ Plug 'tpope/vim-rails'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 " Go plugins 
 Plug 'fatih/vim-go'
+Plug 'zchee/deoplete-go', { 'do': ':make' }
+" Elixir plugins
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
+" Misc plugins
+Plug 'hashivim/vim-terraform'
+Plug 'tpope/vim-markdown'
+Plug 'vimwiki/vimwiki'
+Plug 'elzr/vim-json'
 call plug#end()
 
 " Vim config
@@ -35,8 +44,29 @@ set relativenumber
 set noshowmode
 
 " IDE like Config
+" deoplete.nvim recommend
+set completeopt+=noselect
+
+" Path to python interpreter for neovim
+let g:python3_host_prog  = '/usr/local/bin/python3'
+" Skip the check of neovim module
+let g:python3_host_skip_check = 1
+
+" Run deoplete.nvim automatically
+let g:deoplete#enable_at_startup = 1
+" deoplete-go settings
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:go_gocode_autobuild = 1
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>tt :TagbarToggle<CR>
+nnoremap <Leader>ct :!ripper-tags -R --exclude=vendor<CR>
+nnoremap <Leader>ag :Ags
+nnoremap <Leader>agw yiw :Ags <C-r>0<CR>
+nnoremap <Leader>agl :AgsLast<CR>
+nnoremap <Leader>agq :AgsQuit<CR>
+let g:ags_enable_async = 1
+
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
@@ -77,3 +107,7 @@ map <Leader>rf :call RunCurrentSpecFile()<CR>
 map <Leader>rn :call RunNearestSpec()<CR>
 map <Leader>rl :call RunLastSpec()<CR>
 map <Leader>ra :call RunAllSpecs()<CR>
+
+" Golang
+nnoremap <Leader>giw yiw :GoImport <C-r>0<CR>
+
