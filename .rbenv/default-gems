@@ -1,5 +1,7 @@
-gem-ctags
 bundler
 neovim
 rubocop
 pry
+reek
+ripper-tags
+gem-ripper-tags
