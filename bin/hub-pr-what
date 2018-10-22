@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# This script depends on git and hub, make sure they are installed in your
+# system. If you are using homebrew, this can be easily done with the following
+# command:
+#
+#     brew install git hub
+
+timestamp = `git show master -s --format=%ct`.to_i
+
+prs = `hub pr list --state=all --format="%ct %ut %S %i%Creset %t% l%n" --limit=50`
+
+latest = prs.split("\n")
+            .map { |l| l.split(' ') }
+            .select do |l|
+              l[0..1].map(&:to_i).max > timestamp
+            end
+
+puts "#{latest.size} PRs were worked on since you last pulled"
+latest.each do |l|
+  new_or_created = if l[0].to_i > timestamp
+                     'new'
+                   else
+                     'updated'
+                   end
+
+  puts "#{new_or_created}(#{l[2]}): #{l[3..-1].join(' ')}"
+end
