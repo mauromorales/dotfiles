@@ -50,7 +50,8 @@ IGNORED_FILES = [
 	'README.md',
   'remote_files.yml',
   '.rspec',
-  'spec'
+  'spec',
+  '.terminfo'
 ]
 
 REMOTE_FILES = YAML.load_file('remote_files.yml')
