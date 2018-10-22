@@ -19,6 +19,9 @@ Plug 'tpope/gem-browse'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
 Plug 'matze/vim-move'
+Plug 'easymotion/vim-easymotion'
+Plug 'mhinz/vim-signify'
+Plug 'ruanyl/vim-gh-line'
 "Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -55,8 +58,8 @@ syntax on
 language en_US
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-set background=light
-colorscheme github
+set background=dark
+colorscheme solarized
 set number
 set noshowmode
 au VimResized * :wincmd =
@@ -92,6 +95,7 @@ nnoremap <leader>ppj :%!ruby -r json -e 'puts JSON.pretty_generate(JSON.parse(AR
 " deoplete.nvim recommend
 set completeopt+=noselect
 let g:ale_completion_enabled = 1
+let g:ale_linter_aliases = {'pandoc': 'markdown'}
 
 " Path to python interpreter for neovim
 let g:python3_host_prog  = '/usr/local/bin/python3'
@@ -147,6 +151,9 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
 
 " Ruby Config
 let g:ale_fixers.ruby = ['rubocop']
