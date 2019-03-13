@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rainbow'
 require_relative 'config_file'
 

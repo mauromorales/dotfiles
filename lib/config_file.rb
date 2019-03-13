@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConfigFile
   attr_reader :destination
 
