@@ -39,23 +39,23 @@ IGNORED_FILES = [
   '..',
   '.byebug_history',
   '.content',
-  'Gemfile',
-  'Gemfile.lock',
   '.git',
   '.gitignore',
+  '.rspec',
+  '.ruby-version',
+  '.terminfo',
+  'doc',
+  'Gemfile',
+  'Gemfile.lock',
   'lib',
   'LICENSE',
   'Rakefile',
-  '.rbenv',
   'README.md',
   'remote_files.yml',
-  '.rspec',
-  'spec',
-  '.terminfo',
-  'doc',
   '.yardoc',
   'tags',
-  '.ruby-version'
+  'todo.txt',
+  'spec'
 ].freeze
 
 REMOTE_FILES = YAML.load_file('remote_files.yml')
