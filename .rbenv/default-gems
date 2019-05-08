@@ -1,7 +1,10 @@
 bundler
+bundler-audit
+gem-ripper-tags
+gem-ctags
 neovim
-rubocop
 pry
 reek
+rubocop
 ripper-tags
-gem-ripper-tags
+tmuxinator
