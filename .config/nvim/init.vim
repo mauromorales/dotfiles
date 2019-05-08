@@ -45,23 +45,56 @@ Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 " Plug 'tpope/vim-markdown'
-Plug 'file:///Users/mmorales/Dropbox/src/vim-leanpub'
 Plug 'elzr/vim-json'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 call plug#end()
 
 " Vim config
 set nocompatible
 filetype plugin indent on
 syntax on
+
+
+set modelines=0
+set autoindent
+set showmode
+set showcmd
+set hidden
+set visualbell
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set nonumber
+set norelativenumber
+set laststatus=2
+set history=1000
+set undofile
+set undoreload=10000
+set list
+set listchars=tab:▸\ ,extends:❯,precedes:❮
+set lazyredraw
+set matchtime=3
+set showbreak=↪
+set splitbelow
+set splitright
+set autowrite
+set autoread
+set shiftround
+set title
+set linebreak
+set colorcolumn=+1
+set diffopt+=vertical
+
+
 language en_US
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-set background=dark
+nnoremap <leader>cfp :let @* = expand("%")<cr>
+set background=light
 colorscheme solarized
-set number
-set noshowmode
+" set number
+" set noshowmode
 au VimResized * :wincmd =
 autocmd Filetype gitcommit setlocal spell textwidth=72
 set backup
@@ -111,7 +144,7 @@ let g:go_gocode_autobuild = 1
 
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>tt :TagbarToggle<CR>
-nnoremap <Leader>ct :!ripper-tags -R --exclude=vendor<CR>
+nnoremap <Leader>ct :!ripper-tags -R --exclude=vendor --exclude=node_modules<CR>
 nnoremap <Leader>ag :Ags
 nnoremap <Leader>agw yiw :Ags <C-r>0<CR>
 nnoremap <Leader>agl :AgsLast<CR>
@@ -145,7 +178,7 @@ let g:lightline.active = { 'right':  [
         		\            ] }
 
 let g:ale_fixers = {}
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 
 set tabstop=2
 set shiftwidth=2
