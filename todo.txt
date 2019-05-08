@@ -1,0 +1,7 @@
+# add functionality to run commands for setup
+pip3 install pynvim
+
+# set computer name
+sudo scutil --set ComputerName "newname"
+sudo scutil --set LocalHostName "newname"
+sudo scutil --set HostName "newname"
