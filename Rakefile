@@ -47,6 +47,7 @@ IGNORED_FILES = [
   'doc',
   'Gemfile',
   'Gemfile.lock',
+  'init.vim', #I'm testing SpaceVim
   'lib',
   'LICENSE',
   'Rakefile',
